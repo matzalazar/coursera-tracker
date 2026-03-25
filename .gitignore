@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+
+# Claude Code
+.claude/
+
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace (Copia en conflicto de*).json
+data.json
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Otros
+*.log

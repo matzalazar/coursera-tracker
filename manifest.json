@@ -1,0 +1,10 @@
+{
+  "id": "coursera-tracker",
+  "name": "Coursera Tracker",
+  "version": "0.1.0",
+  "minAppVersion": "1.0.0",
+  "description": "Import Coursera courses into your vault: one note per lesson, organized by module and content type, with YAML frontmatter for progress tracking.",
+  "author": "Matías Leonel Zalazar",
+  "authorUrl": "https://github.com/matzalazar",
+  "isDesktopOnly": true
+}
