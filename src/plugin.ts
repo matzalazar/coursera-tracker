@@ -23,12 +23,12 @@ export default class CourseTrackerPlugin extends Plugin {
           }
 
           if (detectPlatform(url) === "unknown") {
-            new Notice("Unrecognized URL. Only Coursera courses are supported.");
+            new Notice("Unrecognized URL — only Coursera courses are supported.");
             return;
           }
 
           if (!(this.app.vault.adapter instanceof FileSystemAdapter)) {
-            new Notice("This plugin only works on Obsidian Desktop.");
+            new Notice("This plugin only works on Obsidian desktop.");
             return;
           }
 
