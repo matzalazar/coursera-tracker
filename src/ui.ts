@@ -6,13 +6,13 @@ import { Modal, Setting, App } from "obsidian";
 export class UrlPromptModal extends Modal {
   private url = "";
 
-  constructor(app: App, private onSubmit: (url: string) => void) {
+  constructor(app: App, private onSubmit: (url: string) => void | Promise<void>) {
     super(app);
   }
 
   onOpen() {
     const { contentEl } = this;
-    new Setting(contentEl).setName("Import Course from URL").setHeading();
+    new Setting(contentEl).setName("Import course from URL").setHeading();
 
     new Setting(contentEl)
       .setName("Course URL")
@@ -29,7 +29,7 @@ export class UrlPromptModal extends Modal {
         .setCta()
         .onClick(() => {
           this.close();
-          this.onSubmit(this.url);
+          void this.onSubmit(this.url);
         })
     );
   }

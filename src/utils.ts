@@ -24,7 +24,7 @@ export function sanitize(input: string | undefined | null): string {
   return input
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")     // strip diacritics
-    .replace(/[\/\\?%*:|"<>]/g, "")      // strip forbidden path characters
+    .replace(/[/\\?%*:|"<>]/g, "")       // strip forbidden path characters
     .trim()
     .replace(/\s+/g, " ")                // collapse whitespace
     .split(" ")

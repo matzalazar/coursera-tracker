@@ -9,10 +9,10 @@ import { scrapeCourse } from "./scrapers/coursera";
 export default class CourseTrackerPlugin extends Plugin {
   private isImporting = false;
 
-  async onload() {
+  onload() {
     this.addCommand({
       id: "create-course-from-url",
-      name: "Create Course from URL",
+      name: "Create course from URL",
       callback: () => {
         new UrlPromptModal(this.app, async (url: string) => {
           if (!url) return;
