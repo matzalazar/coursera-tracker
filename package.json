@@ -1,6 +1,6 @@
 {
   "name": "coursera-tracker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Import Coursera courses and track them inside Obsidian.",
   "main": "main.js",
   "scripts": {
