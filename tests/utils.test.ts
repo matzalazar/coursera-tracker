@@ -10,11 +10,16 @@ describe("detectPlatform", () => {
   it("identifies Coursera URLs", () => {
     expect(detectPlatform("https://www.coursera.org/learn/machine-learning")).toBe("coursera");
     expect(detectPlatform("https://coursera.org/specializations/deep-learning")).toBe("coursera");
+    expect(detectPlatform("https://foo.coursera.org/learn/machine-learning")).toBe("coursera");
   });
 
   it("returns unknown for unsupported URLs", () => {
     expect(detectPlatform("https://www.udemy.com/course/python")).toBe("unknown");
     expect(detectPlatform("https://edx.org/learn/python")).toBe("unknown");
+    expect(detectPlatform("https://evil.com/?next=coursera.org")).toBe("unknown");
+    expect(detectPlatform("https://coursera.org.evil.com/learn/test")).toBe("unknown");
+    expect(detectPlatform("ftp://coursera.org/learn/test")).toBe("unknown");
+    expect(detectPlatform("not a url")).toBe("unknown");
     expect(detectPlatform("")).toBe("unknown");
   });
 });
@@ -42,9 +47,14 @@ describe("sanitize", () => {
     expect(sanitize("too   many   spaces")).toBe("Too Many Spaces");
   });
 
+  it("removes wikilink-breaking characters", () => {
+    expect(sanitize("[intro] #1 ^draft")).toBe("Intro 1 Draft");
+  });
+
   it("handles null and undefined gracefully", () => {
     expect(sanitize(null)).toBe("Untitled");
     expect(sanitize(undefined)).toBe("Untitled");
     expect(sanitize("")).toBe("Untitled");
+    expect(sanitize("////")).toBe("Untitled");
   });
 });

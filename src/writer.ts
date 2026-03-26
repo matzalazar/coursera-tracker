@@ -4,6 +4,15 @@ import { TFile, Vault, normalizePath } from "obsidian";
 import { sanitize } from "./utils";
 import type { Course } from "./types";
 
+function quoteYaml(value: string): string {
+  const escaped = value
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/\r?\n/g, "\\n");
+
+  return `"${escaped}"`;
+}
+
 /**
  * Ensures all folders in the given path exist, then creates or overwrites a file.
  * Folder segments are created one by one to satisfy Obsidian's vault API.
@@ -89,9 +98,9 @@ export async function saveCourse(vault: Vault, baseFolder: string, course: Cours
 
         const frontmatter = [
           `---`,
-          `title: "${lesson.title}"`,
-          `type: "${lesson.type}"`,
-          `duration: "${lesson.duration}"`,
+          `title: ${quoteYaml(lesson.title)}`,
+          `type: ${quoteYaml(lesson.type)}`,
+          `duration: ${quoteYaml(lesson.duration)}`,
           `completed: false`,
           `date: null`,
           `---`,

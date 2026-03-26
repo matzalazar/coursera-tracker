@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "build": "rm -rf dist && esbuild src/main.ts --bundle --platform=node --target=es2020 --external:obsidian --loader:.wasm=binary --outdir=dist",
-    "build:scrape": "esbuild scripts/scrape.ts --bundle --platform=node --target=es2020 --loader:.wasm=binary --outfile=dist/scrape.js",
+    "build:scrape": "esbuild scripts/scrape.ts --bundle --platform=node --target=es2020 --external:obsidian --loader:.wasm=binary --outfile=dist/scrape.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -5,12 +5,28 @@
 //   npm run build:scrape
 //   node dist/scrape.js https://www.coursera.org/learn/<course-slug>
 
-import { scrapeCourse } from "../src/scrapers/coursera";
+import { parseCourse } from "../src/scrapers/parser";
 import type { Course } from "../src/types";
 
 // ── Formatting ────────────────────────────────────────────────────────────────
 
 const DIVIDER = "─".repeat(60);
+
+async function fetchCourseHtml(url: string): Promise<string> {
+  const res = await fetch(url, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36",
+      "Accept-Language": "en-US,en;q=0.9",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status} — could not fetch the course page.`);
+  }
+
+  return res.text();
+}
 
 function padEnd(str: string, len: number): string {
   return str.length >= len ? str : str + " ".repeat(len - str.length);
@@ -62,7 +78,8 @@ async function main(): Promise<void> {
   console.log(`\nFetching: ${url}`);
 
   try {
-    const course = await scrapeCourse(url);
+    const html = await fetchCourseHtml(url);
+    const course = parseCourse(html, url);
     printCourse(course);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

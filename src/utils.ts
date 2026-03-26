@@ -7,8 +7,19 @@ import type { Platform } from "./types";
  * Returns "unknown" if the platform is not yet supported.
  */
 export function detectPlatform(url: string): Platform {
-  if (url.includes("coursera.org")) return "coursera";
-  return "unknown";
+  try {
+    const parsed = new URL(url.trim());
+    const hostname = parsed.hostname.toLowerCase();
+
+    if (parsed.protocol !== "https:") return "unknown";
+    if (hostname === "coursera.org" || hostname.endsWith(".coursera.org")) {
+      return "coursera";
+    }
+
+    return "unknown";
+  } catch {
+    return "unknown";
+  }
 }
 
 /**
@@ -21,13 +32,17 @@ export function detectPlatform(url: string): Platform {
  */
 export function sanitize(input: string | undefined | null): string {
   if (!input || typeof input !== "string") return "Untitled";
-  return input
+
+  const sanitized = input
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")     // strip diacritics
-    .replace(/[/\\?%*:|"<>]/g, "")       // strip forbidden path characters
+    .replace(/[\u0000-\u001f\u007f]/g, "") // strip control characters
+    .replace(/[/\\?%*:|"<>\[\]#^]/g, "") // strip forbidden path and wikilink chars
     .trim()
     .replace(/\s+/g, " ")                // collapse whitespace
     .split(" ")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
     .join(" ");
+
+  return sanitized || "Untitled";
 }

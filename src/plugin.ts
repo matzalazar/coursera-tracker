@@ -15,15 +15,16 @@ export default class CourseTrackerPlugin extends Plugin {
       name: "Create course from URL",
       callback: () => {
         new UrlPromptModal(this.app, async (url: string) => {
-          if (!url) return;
+          const normalizedUrl = url.trim();
+          if (!normalizedUrl) return;
 
           if (this.isImporting) {
             new Notice("An import is already in progress.");
             return;
           }
 
-          if (detectPlatform(url) === "unknown") {
-            new Notice("Unrecognized URL — only Coursera courses are supported.");
+          if (detectPlatform(normalizedUrl) === "unknown") {
+            new Notice("Invalid URL — use a full https://coursera.org/... course URL.");
             return;
           }
 
@@ -36,7 +37,7 @@ export default class CourseTrackerPlugin extends Plugin {
           new Notice("Fetching course data…");
 
           try {
-            const course = await scrapeCourse(url);
+            const course = await scrapeCourse(normalizedUrl);
             const folder = `Courses/Coursera/${sanitize(course.title)}`;
             await saveCourse(this.app.vault, folder, course);
             new Notice(`Course imported: ${folder}`);

@@ -8,7 +8,7 @@ Thank you for your interest in contributing. This document covers how to set up 
 
 ### Requirements
 
-- Node.js ≥ 18.19.1
+- Node.js ≥ 20.0.0
 - npm ≥ 9.2.0
 - An Obsidian Desktop vault for manual testing
 
