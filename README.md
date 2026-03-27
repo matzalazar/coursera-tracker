@@ -1,12 +1,22 @@
-# Coursera Tracker
+# coursera tracker
+
+<p align="center">
+   <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="./assets/dark-banner.png">
+   <source media="(prefers-color-scheme: light)" srcset="./assets/light-banner.png">
+   <img alt="Coursera Tracker Banner" src="./assets/light-banner.png" width="100%">
+   </picture>
+</p>
+   
+<p align="center">
+
+   ![Version](https://img.shields.io/badge/version-0.1.1-blue)
+   ![License](https://img.shields.io/badge/license-MIT-green)
+   ![Platform](https://img.shields.io/badge/platform-Obsidian%20Desktop-purple)
+
+</p>
 
 > Import Coursera courses into your Obsidian vault — structured, linked, and ready to annotate.
-
-![Version](https://img.shields.io/badge/version-0.1.1-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Platform](https://img.shields.io/badge/platform-Obsidian%20Desktop-purple)
-
----
 
 ## Overview
 
@@ -18,20 +28,13 @@ Everything runs locally inside Obsidian. No login, no cookies, no external tools
 
 ## How It Works
 
-```
-User pastes Coursera URL
-         │
-         ▼
-Fetches public course syllabus (no auth required)
-         │
-         ▼
-Parses modules, content types, and lessons
-         │
-         ▼
-Creates vault folder structure + .md files
-```
+Paste a Coursera course URL — the plugin fetches the public syllabus and builds a fully linked vault structure automatically.
 
----
+<p align="center">
+  <a href="https://youtu.be/0tcHl_6HkkI">
+    <img src="assets/demo.gif" alt="Coursera Tracker demo" width="700" />
+  </a>
+</p>
 
 ## Prerequisites
 
